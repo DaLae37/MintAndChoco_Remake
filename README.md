@@ -1,4 +1,4 @@
-# MintAndChoco_Remaster
+# MintAndChoco_Remake
 
 # 개발 엔진
 

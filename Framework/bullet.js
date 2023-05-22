@@ -7,7 +7,6 @@ const spheres = [];
 let sphereIdx = 0;
 
 for ( let i = 0; i < NUM_SPHERES; i ++ ) {
-
   const sphere = new THREE.Mesh( sphereGeometry, sphereMaterial );
   sphere.castShadow = true;
   sphere.receiveShadow = true;
