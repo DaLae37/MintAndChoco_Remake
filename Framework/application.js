@@ -41,39 +41,8 @@ directionalLight.shadow.radius = 4;
 directionalLight.shadow.bias = - 0.00006;
 scene.add( directionalLight );
 
-
 const loader = new OBJLoader();
 
-loader.load('Resources/Models/ground-1.obj', (gltf) => {
-  var texture = new THREE.TextureLoader().load("Resources/Models/ground-1.png");
-
-  gltf.scale.set(0.01,0.01,0.01);
-  gltf.updateWorldMatrix(true);
-  worldOctree.fromGraphNode( gltf );
-
-  gltf.traverse( child => {
-    if ( child.isMesh ) {
-      child.castShadow = true;
-      child.receiveShadow = true;
-      child.material.map = texture;
-    }
-
-  } );
-  scene.add(gltf);
-
-  const helper = new OctreeHelper( worldOctree );
-  helper.visible = false;
-  scene.add(helper);
-
-  const gui = new GUI( { width: 200 } );
-  gui.add( { debug: false }, 'debug' )
-    .onChange( function ( value ) {
-      helper.visible = value;
-    } );
-
-  animate();
-
-} );
 let mixer;
 const FBXloader = new FBXLoader();
 FBXloader.load('Resources/Animations/cat walk.FBX', function ( object ) {
@@ -135,8 +104,105 @@ for ( let i = 0; i < NUM_SPHERES; i ++ ) {
 
 }
 
+const groundType = 4
+let groundObject = new Array(groundType)
 const worldOctree = new Octree();
+const groundNum = 30;
+let ground;
+var loadNum = 0
+function CreateGround(){
+  if(loadNum < groundType - 1){
+      loadNum+=1
+      return;
+    }
+  else{
+  ground = new Array(groundNum);
+  for (var i = 0; i < groundNum; i++){
+  ground[i] = new Array(groundNum);
+  for(var j = 0; j < groundNum; j++){
+      ground[i][j] = groundObject[Math.floor(Math.random() * 4)].clone(true);
+      ground[i][j].position.set(i * 0.3 - 4.5, 0, j * 0.3 - 4.5)
+      ground[i][j].updateWorldMatrix(true)
+      scene.add(ground[i][j])
+    }
+  }
+}
+}
 
+function LoadGround(){
+  loader.load('Resources/Models/ground-1.obj', (ground) => {
+    var texture = new THREE.TextureLoader().load("Resources/Models/ground-1.png");
+  
+    ground.scale.set(0.01,0.01,0.01);
+    ground.updateWorldMatrix(true);
+    worldOctree.fromGraphNode( ground );
+  
+    ground.traverse( child => {
+      if ( child.isMesh ) {
+        child.castShadow = true;
+        child.receiveShadow = true;
+        child.material.map = texture;
+      }
+    } );
+    groundObject[0] = ground
+    CreateGround()
+  } );
+  
+  loader.load('Resources/Models/ground-2.obj', (ground) => {
+    var texture = new THREE.TextureLoader().load("Resources/Models/ground-2.png");
+  
+    ground.scale.set(0.01,0.01,0.01);
+    ground.updateWorldMatrix(true);
+    worldOctree.fromGraphNode( ground );
+  
+    ground.traverse( child => {
+      if ( child.isMesh ) {
+        child.castShadow = true;
+        child.receiveShadow = true;
+        child.material.map = texture;
+      }
+    } );
+    groundObject[1] = ground
+    CreateGround()
+  } );
+  
+  loader.load('Resources/Models/ground-3.obj', (ground) => {
+    var texture = new THREE.TextureLoader().load("Resources/Models/ground-3.png");
+  
+    ground.scale.set(0.01,0.01,0.01);
+    ground.updateWorldMatrix(true);
+    worldOctree.fromGraphNode( ground );
+  
+    ground.traverse( child => {
+      if ( child.isMesh ) {
+        child.castShadow = true;
+        child.receiveShadow = true;
+        child.material.map = texture;
+      }
+    } );
+    groundObject[2] = ground
+    CreateGround()
+  } );
+  
+  loader.load('Resources/Models/ground-4.obj', (ground) => {
+    var texture = new THREE.TextureLoader().load("Resources/Models/ground-4.png");
+  
+    ground.scale.set(0.01,0.01,0.01);
+    ground.updateWorldMatrix(true);
+    worldOctree.fromGraphNode( ground );
+  
+    ground.traverse( child => {
+      if ( child.isMesh ) {
+        child.castShadow = true;
+        child.receiveShadow = true;
+        child.material.map = texture;
+      }
+    groundObject[3] = ground
+    CreateGround()
+    } );
+  } );
+}
+LoadGround()
 const playerCollider = new Capsule( new THREE.Vector3( 0, 0.35, 0 ), new THREE.Vector3( 0, 1, 0 ), 0.35 );
 
 const playerVelocity = new THREE.Vector3();
@@ -445,7 +511,7 @@ function teleportPlayerIfOob() {
 
 }
 
-
+animate()
 function animate() {
 
   const deltaTime = Math.min( 0.05, clock.getDelta() ) / STEPS_PER_FRAME;
