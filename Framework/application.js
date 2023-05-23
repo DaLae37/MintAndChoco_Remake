@@ -1,3 +1,4 @@
+import * as THREE from 'three';
 import * as Three from "./threejs.js"
 import * as Map from "./map.js"
 //import * as Player from "./player.js"
@@ -13,6 +14,8 @@ function Init() {
   Map.InitMap()
   container.appendChild(Three.renderer.domElement);
   container.appendChild(Three.stats.domElement);
+  Three.camera.position.set(0,1,0);
+  Three.camera.updateMatrixWorld(true);
 
   InitEventListener();
 
@@ -26,7 +29,7 @@ function Update() {
 
   for (var i = 0; i < STEPS_PER_FRAME; i++) {
     controls(deltaTime);
-   // updatePlayer(deltaTime);
+    //Player.updatePlayer(deltaTime);
     //updateSpheres(deltaTime);
     //teleportPlayerIfOob();
     //if (mixer) mixer.update(deltaTime);
@@ -72,19 +75,20 @@ function InitEventListener() {
 
 function controls(deltaTime) {
   // gives a bit of air control
-  const speedDelta = deltaTime// * (playerOnFloor ? 25 : 8);
+  const speedDelta = deltaTime * 25// * (playerOnFloor ? 25 : 8);
   if (keyStates['KeyW']) {
-    playerVelocity.add(getForwardVector().multiplyScalar(speedDelta));
+    //Player.playerVelocity.add(Player.getForwardVector().multiplyScalar(speedDelta));
   }
   if (keyStates['KeyS']) {
-    playerVelocity.add(getForwardVector().multiplyScalar(- speedDelta));
+    //Player.playerVelocity.add(Player.getForwardVector().multiplyScalar(- speedDelta));
   }
   if (keyStates['KeyA']) {
-    playerVelocity.add(getSideVector().multiplyScalar(- speedDelta));
+    //Player.playerVelocity.add(Player.getSideVector().multiplyScalar(- speedDelta));
   }
   if (keyStates['KeyD']) {
-    playerVelocity.add(getSideVector().multiplyScalar(speedDelta));
+    //Player.playerVelocity.add(Player.getSideVector().multiplyScalar(speedDelta));
   }
+  //Three.camera.position.copy(Player.playerVelocity.clone().multiplyScalar(deltaTime));
   //if (!playerOnFloor) {
 //    if (keyStates['Space']) {
   //    playerVelocity.y = 15;

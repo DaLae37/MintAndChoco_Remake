@@ -1,10 +1,12 @@
+import * as THREE from 'three';
 import * as Three from "./threejs.js"
 
-export let mixer;
+export let mixer = new THREE.AnimationMixer();
 export function SetAnimationMixer(object){
     mixer = new THREE.AnimationMixer(object);
 }
-FBXloader.load('Resources/Animations/cat walk.FBX', function ( object ) {
+
+Three.FBXloader.load('Resources/Animations/cat walk.FBX', function ( object ) {
     object.scale.set(0.01,0.01,0.01)
     object.position.set(0,0.3,0)
     const action = mixer.clipAction( object.animations[ 0 ] );
@@ -73,7 +75,7 @@ function playerCollisions() {
 
 }
 
-function updatePlayer( deltaTime ) {
+export function updatePlayer( deltaTime ) {
 
   let damping = Math.exp( - 4 * deltaTime ) - 1;
 
@@ -202,7 +204,7 @@ function updateSpheres( deltaTime ) {
 
 }
 
-function getForwardVector() {
+export function getForwardVector() {
 
   camera.getWorldDirection( playerDirection );
   playerDirection.y = 0;
@@ -212,7 +214,7 @@ function getForwardVector() {
 
 }
 
-function getSideVector() {
+export function getSideVector() {
 
   camera.getWorldDirection( playerDirection );
   playerDirection.y = 0;
@@ -223,7 +225,7 @@ function getSideVector() {
 
 }
 
-function teleportPlayerIfOob() {
+export function teleportPlayerIfOob() {
 
     if ( camera.position.y <= - 25 ) {
   
