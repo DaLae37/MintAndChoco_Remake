@@ -6,6 +6,7 @@ import { OBJLoader } from 'three/addons/loaders/OBJLoader.js';
 
 import { Octree } from 'three/addons/math/Octree.js';
 import { Capsule } from 'three/addons/math/Capsule.js';
+import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
 
 export const OBJloader = new OBJLoader();
 export const FBXloader = new FBXLoader();
@@ -17,6 +18,7 @@ export const scene = new THREE.Scene();
 export const renderer = new THREE.WebGLRenderer({ antialias: true });
 export const stats = new Stats();
 export const camera = new THREE.PerspectiveCamera(70, window.innerWidth / window.innerHeight, 0.1, 1000);
+export const controls = new OrbitControls( camera, renderer.domElement );
 export const fillLight1 = new THREE.HemisphereLight(0x4488bb, 0x002244, 0.5);
 export const directionalLight = new THREE.DirectionalLight(0xffffff, 0.8);
 

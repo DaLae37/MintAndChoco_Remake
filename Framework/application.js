@@ -2,6 +2,7 @@ import * as THREE from 'three';
 import * as Three from "./threejs.js"
 import * as Map from "./map.js"
 //import * as Player from "./player.js"
+import * as Enemy from "./enemy.js"
 
 const container = document.getElementById('container');
 const keyStates = {};
@@ -12,6 +13,7 @@ Init()
 function Init() {
   Three.InitThree()
   Map.InitMap()
+  Enemy.InitEnemy()
   container.appendChild(Three.renderer.domElement);
   container.appendChild(Three.stats.domElement);
   Three.camera.position.set(0,1,0);
@@ -37,6 +39,9 @@ function Update() {
 
   Three.renderer.render(Three.scene, Three.camera);
   Three.stats.update();
+  Three.controls.update();
+  Enemy.UpdateEnemy(deltaTime)
+
   requestAnimationFrame(Update);
 }
 
