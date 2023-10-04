@@ -1,5 +1,7 @@
 # MintAndChoco_Remake
 
+```The license applies only to the HTML and JS codes, NOT image and 3D model files```
+
 # 개발 엔진
 
 ![엔진](https://global.discourse-cdn.com/standard17/uploads/threejs/original/2X/c/c74c5243388bbfa21a39c3e824ddba702a623dec.png)
